@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -7,4 +6,50 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Statuses {
+  id          Int     @id @default(autoincrement())
+  status_name String
+  project_id  Int
+  project     Project @relation(name: "subscription_projects", fields: [project_id], references: [id])
+  Task        Task[]  @relation(name: "task_statuses")
+}
+
+model Project {
+  id         Int        @id @default(autoincrement())
+  name       String
+  created_at DateTime
+  Statuses   Statuses[] @relation(name: "subscription_projects")
+  Task       Task[]     @relation(name: "project_tasks")
+}
+
+model Task {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  project_id  Int
+  project     Project      @relation(name: "project_tasks", fields: [project_id], references: [id])
+  created_at  DateTime
+  status_id   Int
+  status      Statuses     @relation(name: "task_statuses", fields: [status_id], references: [id])
+  last_update DateTime
+  priority    TaskPriority
+  ChangeLog   ChangeLog[]  @relation(name: "task_change")
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model ChangeLog {
+  id              Int      @id @default(autoincrement())
+  task_id         Int
+  task            Task     @relation(name: "task_change", fields: [task_id], references: [id])
+  created_at      DateTime
+  changed_field   String
+  old_field_value String
 }
