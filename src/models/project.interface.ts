@@ -1,5 +1,3 @@
-export interface Project {
-  id: number;
+export interface CreateProject {
   name: string;
-  createdAt: Date;
 }

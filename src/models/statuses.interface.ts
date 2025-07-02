@@ -1,5 +1,4 @@
-export interface Status {
-  id: number;
+export interface CreateStatus {
   projectId: number;
   statusName: string;
 }

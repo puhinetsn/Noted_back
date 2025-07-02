@@ -1,9 +1,8 @@
-export interface Task {
-  id: number;
+import { TaskPriority } from "../generated/prisma";
+export interface CreateTask {
   name: string;
   description: string;
   projectId: number;
-  createdAt: Date;
   statusId: number;
-  lastUpdate: Date;
   priority: TaskPriority;
+}
