@@ -1,7 +1,7 @@
-import { CreateProject, GetProject } from "../models/project.interface";
+import { Project } from "../models/project.interface";
 import prisma from "../utils/connect";
 
-export async function createProject(input: CreateProject) {
+export async function createProject(input: Project) {
   try {
     const project = await prisma.project.create({
       data: {
@@ -24,5 +24,15 @@ export async function findProject(productId: number) {
     throw e;
   }
 }
-export async function findAndUpdateProject() {}
+export async function findAndUpdateProject(productId: number, input: Project) {
+  try {
+    const project = await prisma.project.update({
+      where: { id: productId },
+      data: { name: input.name },
+    });
+    return project;
+  } catch (e) {
+    throw e;
+  }
+}
 export async function deleteProject() {}

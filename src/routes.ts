@@ -1,9 +1,14 @@
 import { Express, Request, Response } from "express";
 import validateResource from "./middleware/validateResource";
-import { createProjectSchema, getProjectSchema } from "./schema/project.schema";
+import {
+  createProjectSchema,
+  getProjectSchema,
+  updateProjectSchema,
+} from "./schema/project.schema";
 import {
   createProjectHandler,
   getProjectHandler,
+  updateProjectHandler,
 } from "./controller/project.controller";
 
 function routes(app: Express) {
@@ -12,7 +17,7 @@ function routes(app: Express) {
   });
 
   app.post(
-    "/api/project",
+    "/api/project/create",
     validateResource(createProjectSchema),
     createProjectHandler
   );
@@ -20,6 +25,11 @@ function routes(app: Express) {
     "/api/project/:id",
     validateResource(getProjectSchema),
     getProjectHandler
+  );
+  app.put(
+    "/api/project/:id",
+    validateResource(updateProjectSchema),
+    updateProjectHandler
   );
 }
 

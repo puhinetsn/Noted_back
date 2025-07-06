@@ -1,4 +1,4 @@
-export interface CreateProject {
+export interface Project {
   name: string;
 }
 

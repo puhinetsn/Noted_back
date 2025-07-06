@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
-import { createProject, findProject } from "../service/project.service";
-import { CreateProject, GetProject } from "../models/project.interface";
+import {
+  createProject,
+  findAndUpdateProject,
+  findProject,
+} from "../service/project.service";
+import { Project, GetProject } from "../models/project.interface";
 
 export async function createProjectHandler(
-  req: Request<{}, {}, CreateProject>,
+  req: Request<{}, {}, Project>,
   res: Response
 ) {
   const body = req.body;
   const project = await createProject(body);
-  res.send(project);
+  return res.status(201).json(project);
 }
 
 export async function getProjectHandler(
@@ -19,9 +23,24 @@ export async function getProjectHandler(
   const project = await findProject(projectId);
 
   if (!project) {
-    res.sendStatus(404);
-    return;
+    return res.status(404).json({ message: "Project not found" });
   }
 
-  res.send(project);
+  return res.json(project);
+}
+
+export async function updateProjectHandler(
+  req: Request<GetProject, {}, Project>,
+  res: Response
+) {
+  const projectId = parseInt(req.params.id, 10);
+  const project = await findProject(projectId);
+
+  if (!project) {
+    return res.status(400).json({ message: "Invalid project ID" });
+  }
+
+  const updatedProject = await findAndUpdateProject(projectId, req.body);
+
+  return res.json(updatedProject);
 }

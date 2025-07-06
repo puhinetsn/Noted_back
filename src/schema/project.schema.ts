@@ -23,3 +23,8 @@ export const createProjectSchema = object({
 export const getProjectSchema = object({
   ...params,
 });
+
+export const updateProjectSchema = object({
+  ...payload,
+  ...params,
+});
