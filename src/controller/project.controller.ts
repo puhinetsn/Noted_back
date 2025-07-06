@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   createProject,
+  deleteProject,
   findAndUpdateProject,
   findProject,
 } from "../service/project.service";
@@ -12,7 +13,7 @@ export async function createProjectHandler(
 ) {
   const body = req.body;
   const project = await createProject(body);
-  return res.status(201).json(project);
+  res.status(201).json(project);
 }
 
 export async function getProjectHandler(
@@ -23,10 +24,11 @@ export async function getProjectHandler(
   const project = await findProject(projectId);
 
   if (!project) {
-    return res.status(404).json({ message: "Project not found" });
+    res.status(404).json({ message: "Project not found" });
+    return;
   }
 
-  return res.json(project);
+  res.json(project);
 }
 
 export async function updateProjectHandler(
@@ -37,10 +39,27 @@ export async function updateProjectHandler(
   const project = await findProject(projectId);
 
   if (!project) {
-    return res.status(400).json({ message: "Invalid project ID" });
+    res.status(400).json({ message: "Invalid project ID" });
+    return;
   }
 
   const updatedProject = await findAndUpdateProject(projectId, req.body);
 
-  return res.json(updatedProject);
+  res.json(updatedProject);
+}
+
+export async function deleteProjectHandler(
+  req: Request<GetProject>,
+  res: Response
+) {
+  const projectId = parseInt(req.params.id, 10);
+  const project = await findProject(projectId);
+
+  if (!project) {
+    res.status(400).json({ message: "Invalid project ID" });
+    return;
+  }
+
+  await deleteProject(projectId);
+  res.status(200).json({ message: "Project deleted successfully" });
 }

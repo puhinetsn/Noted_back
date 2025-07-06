@@ -14,20 +14,20 @@ export async function createProject(input: Project) {
     throw e;
   }
 }
-export async function findProject(productId: number) {
+export async function findProject(projectId: number) {
   try {
     const project = await prisma.project.findFirst({
-      where: { id: productId },
+      where: { id: projectId },
     });
     return project;
   } catch (e) {
     throw e;
   }
 }
-export async function findAndUpdateProject(productId: number, input: Project) {
+export async function findAndUpdateProject(projectId: number, input: Project) {
   try {
     const project = await prisma.project.update({
-      where: { id: productId },
+      where: { id: projectId },
       data: { name: input.name },
     });
     return project;
@@ -35,4 +35,12 @@ export async function findAndUpdateProject(productId: number, input: Project) {
     throw e;
   }
 }
-export async function deleteProject() {}
+export async function deleteProject(projectId: number) {
+  try {
+    return await prisma.project.delete({
+      where: { id: projectId },
+    });
+  } catch (e) {
+    throw e;
+  }
+}

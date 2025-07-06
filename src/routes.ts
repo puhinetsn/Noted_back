@@ -7,15 +7,12 @@ import {
 } from "./schema/project.schema";
 import {
   createProjectHandler,
+  deleteProjectHandler,
   getProjectHandler,
   updateProjectHandler,
 } from "./controller/project.controller";
 
 function routes(app: Express) {
-  app.get("/main", (_req: Request, res: Response) => {
-    res.sendStatus(200);
-  });
-
   app.post(
     "/api/project/create",
     validateResource(createProjectSchema),
@@ -30,6 +27,11 @@ function routes(app: Express) {
     "/api/project/:id",
     validateResource(updateProjectSchema),
     updateProjectHandler
+  );
+  app.delete(
+    "/api/project/:id",
+    validateResource(getProjectSchema),
+    deleteProjectHandler
   );
 }
 
