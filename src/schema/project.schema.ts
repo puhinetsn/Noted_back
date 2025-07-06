@@ -10,12 +10,16 @@ const payload = {
 
 const params = {
   params: object({
-    projectId: string({
-      required_error: "projectId is required",
+    id: string({
+      required_error: "project ID is required",
     }),
   }),
 };
 
 export const createProjectSchema = object({
   ...payload,
+});
+
+export const getProjectSchema = object({
+  ...params,
 });

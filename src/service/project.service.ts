@@ -1,4 +1,4 @@
-import { CreateProject } from "../models/project.interface";
+import { CreateProject, GetProject } from "../models/project.interface";
 import prisma from "../utils/connect";
 
 export async function createProject(input: CreateProject) {
@@ -14,6 +14,15 @@ export async function createProject(input: CreateProject) {
     throw e;
   }
 }
-export async function findProject() {}
+export async function findProject(productId: number) {
+  try {
+    const project = await prisma.project.findFirst({
+      where: { id: productId },
+    });
+    return project;
+  } catch (e) {
+    throw e;
+  }
+}
 export async function findAndUpdateProject() {}
 export async function deleteProject() {}
