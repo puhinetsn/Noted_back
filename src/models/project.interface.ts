@@ -1,7 +1,3 @@
-export interface Project {
+export interface ProjectFields {
   name: string;
 }
-
-export type GetProject = {
-  id: string;
-};

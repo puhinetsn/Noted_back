@@ -11,6 +11,18 @@ import {
   getProjectHandler,
   updateProjectHandler,
 } from "./controller/project.controller";
+import {
+  createStatusSchema,
+  getStatusSchema,
+  updateStatusSchema,
+} from "./schema/statuses.schema";
+import {
+  createStatusHandler,
+  deleteStatusHandler,
+  getStatusesHandler,
+  getStatusHandler,
+  updateStatusHandler,
+} from "./controller/statuses.controller";
 
 function routes(app: Express) {
   app.post(
@@ -32,6 +44,32 @@ function routes(app: Express) {
     "/api/project/:id",
     validateResource(getProjectSchema),
     deleteProjectHandler
+  );
+
+  app.post(
+    "/api/status/create",
+    validateResource(createStatusSchema),
+    createStatusHandler
+  );
+  app.get(
+    "/api/status/:id",
+    validateResource(getStatusSchema),
+    getStatusHandler
+  );
+  app.get(
+    "/api/statuses/:id",
+    validateResource(getStatusSchema),
+    getStatusesHandler
+  );
+  app.put(
+    "/api/status/:id",
+    validateResource(updateStatusSchema),
+    updateStatusHandler
+  );
+  app.delete(
+    "/api/status/:id",
+    validateResource(getStatusSchema),
+    deleteStatusHandler
   );
 }
 

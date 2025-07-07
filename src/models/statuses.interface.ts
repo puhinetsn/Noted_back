@@ -1,4 +1,4 @@
-export interface CreateStatus {
-  projectId: number;
-  statusName: string;
+export interface StatusFields {
+  project_id: number;
+  status_name: string;
 }

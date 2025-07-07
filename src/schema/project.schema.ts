@@ -11,7 +11,7 @@ const payload = {
 const params = {
   params: object({
     id: string({
-      required_error: "project ID is required",
+      required_error: "Project ID is required",
     }),
   }),
 };

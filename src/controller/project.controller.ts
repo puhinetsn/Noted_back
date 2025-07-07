@@ -5,10 +5,11 @@ import {
   findAndUpdateProject,
   findProject,
 } from "../service/project.service";
-import { Project, GetProject } from "../models/project.interface";
+import { ProjectFields } from "../models/project.interface";
+import { GetIdByParam } from "../models/shared/idSharedParams.interface";
 
 export async function createProjectHandler(
-  req: Request<{}, {}, Project>,
+  req: Request<{}, {}, ProjectFields>,
   res: Response
 ) {
   const body = req.body;
@@ -17,7 +18,7 @@ export async function createProjectHandler(
 }
 
 export async function getProjectHandler(
-  req: Request<GetProject>,
+  req: Request<GetIdByParam>,
   res: Response
 ) {
   const projectId = parseInt(req.params.id, 10);
@@ -32,7 +33,7 @@ export async function getProjectHandler(
 }
 
 export async function updateProjectHandler(
-  req: Request<GetProject, {}, Project>,
+  req: Request<GetIdByParam, {}, ProjectFields>,
   res: Response
 ) {
   const projectId = parseInt(req.params.id, 10);
@@ -49,7 +50,7 @@ export async function updateProjectHandler(
 }
 
 export async function deleteProjectHandler(
-  req: Request<GetProject>,
+  req: Request<GetIdByParam>,
   res: Response
 ) {
   const projectId = parseInt(req.params.id, 10);
