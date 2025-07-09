@@ -1,8 +1,8 @@
 import { TaskPriority } from "../generated/prisma";
-export interface CreateTask {
+export interface TaskFields {
   name: string;
   description: string;
-  projectId: number;
-  statusId: number;
+  project_id: number;
+  status_id: number;
   priority: TaskPriority;
 }

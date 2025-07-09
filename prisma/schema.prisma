@@ -52,4 +52,5 @@ model ChangeLog {
   created_at      DateTime
   changed_field   String
   old_field_value String
+  new_field_value String
 }

@@ -1,6 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { AnyZodObject } from "zod";
-import { de } from "zod/v4/locales";
 
 const validate =
   (schema: AnyZodObject) =>
@@ -11,8 +10,10 @@ const validate =
         query: req.query,
         params: req.params,
       });
+      next();
     } catch (e: any) {
-      return res.status(400).send(e.errors);
+      res.status(400).send(e.errors);
+      return;
     }
   };
 
