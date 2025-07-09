@@ -24,11 +24,6 @@ export async function getProjectHandler(
   const projectId = parseInt(req.params.id, 10);
   const project = await findProject(projectId);
 
-  if (!project) {
-    res.status(404).json({ message: "Project not found" });
-    return;
-  }
-
   res.json(project);
 }
 
@@ -37,13 +32,6 @@ export async function updateProjectHandler(
   res: Response
 ) {
   const projectId = parseInt(req.params.id, 10);
-  const project = await findProject(projectId);
-
-  if (!project) {
-    res.status(400).json({ message: "Invalid project ID" });
-    return;
-  }
-
   const updatedProject = await findAndUpdateProject(projectId, req.body);
 
   res.json(updatedProject);
@@ -54,13 +42,6 @@ export async function deleteProjectHandler(
   res: Response
 ) {
   const projectId = parseInt(req.params.id, 10);
-  const project = await findProject(projectId);
-
-  if (!project) {
-    res.status(400).json({ message: "Invalid project ID" });
-    return;
-  }
-
   await deleteProject(projectId);
   res.status(200).json({ message: "Project deleted successfully" });
 }

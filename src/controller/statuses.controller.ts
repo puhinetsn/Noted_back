@@ -8,7 +8,6 @@ import {
   findStatus,
   findStatuses,
 } from "../service/statuses.service";
-import { findProject } from "../service/project.service";
 
 export async function createStatusHandler(
   req: Request<{}, {}, StatusFields>,
@@ -26,11 +25,6 @@ export async function getStatusesHandler(
   const projectId = parseInt(req.params.id, 10);
   const statuses = await findStatuses(projectId);
 
-  if (!statuses) {
-    res.status(404).json({ message: "Statuses not found" });
-    return;
-  }
-
   res.json(statuses);
 }
 
@@ -41,11 +35,6 @@ export async function getStatusHandler(
   const statusId = parseInt(req.params.id, 10);
   const status = await findStatus(statusId);
 
-  if (!status) {
-    res.status(404).json({ message: "Status not found" });
-    return;
-  }
-
   res.json(status);
 }
 
@@ -55,11 +44,6 @@ export async function updateStatusHandler(
 ) {
   const statusId = parseInt(req.params.id, 10);
   const status = await findStatus(statusId);
-
-  if (!status) {
-    res.status(400).json({ message: "Invalid status ID" });
-    return;
-  }
 
   const updatedStatus = await findAndUpdateStatus(statusId, req.body);
 
@@ -72,11 +56,6 @@ export async function deleteStatusHandler(
 ) {
   const statusId = parseInt(req.params.id, 10);
   const status = await findStatus(statusId);
-
-  if (!status) {
-    res.status(400).json({ message: "Invalid status ID" });
-    return;
-  }
 
   await deleteStatus(statusId);
   res.status(200).json({ message: "Status deleted successfully" });

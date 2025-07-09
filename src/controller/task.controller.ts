@@ -25,11 +25,6 @@ export async function getTasksHandler(
   const projectId = parseInt(req.params.id, 10);
   const tasks = await findTasks(projectId);
 
-  if (!tasks) {
-    res.status(404).json({ message: "Tasks not found" });
-    return;
-  }
-
   res.json(tasks);
 }
 
@@ -40,11 +35,6 @@ export async function getTaskHandler(
   const taskId = parseInt(req.params.id, 10);
   const task = await findTask(taskId);
 
-  if (!task) {
-    res.status(404).json({ message: "Task not found" });
-    return;
-  }
-
   res.json(task);
 }
 
@@ -54,11 +44,6 @@ export async function updateTaskHandler(
 ) {
   const taskId = parseInt(req.params.id, 10);
   const task = await findTask(taskId);
-
-  if (!task) {
-    res.status(400).json({ message: "Invalid task ID" });
-    return;
-  }
 
   const updatedStatus = await findAndUpdateTask(taskId, req.body);
 
@@ -71,11 +56,6 @@ export async function deleteTaskHandler(
 ) {
   const taskId = parseInt(req.params.id, 10);
   const task = await findTask(taskId);
-
-  if (!task) {
-    res.status(400).json({ message: "Invalid task ID" });
-    return;
-  }
 
   await deleteTask(taskId);
   res.status(200).json({ message: "Task deleted successfully" });

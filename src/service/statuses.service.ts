@@ -1,3 +1,4 @@
+import { InvalidParamsError } from "../models/shared/errors/invalidParamsError.class";
 import { StatusFields } from "../models/statuses.interface";
 import prisma from "../utils/connect";
 
@@ -14,6 +15,7 @@ export async function findStatuses(projectId: number) {
   const statuses = await prisma.statuses.findMany({
     where: { project_id: projectId },
   });
+
   return statuses;
 }
 
@@ -21,6 +23,9 @@ export async function findStatus(statusId: number) {
   const status = await prisma.statuses.findFirst({
     where: { id: statusId },
   });
+  if (!status) {
+    throw new InvalidParamsError("Can not find status");
+  }
   return status;
 }
 
@@ -32,6 +37,9 @@ export async function findAndUpdateStatus(
     where: { id: statusId },
     data: input,
   });
+  if (!status) {
+    throw new InvalidParamsError("Can not find status");
+  }
   return status;
 }
 
