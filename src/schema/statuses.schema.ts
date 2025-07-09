@@ -6,7 +6,7 @@ const payload = {
       required_error: "Name is required",
     }).max(30, "Name should be maximum 30 characters long"),
     project_id: number({
-      required_error: "Project ID is required",
+      required_error: "Project is required",
     }),
   }),
 };

@@ -8,6 +8,7 @@ import {
   findStatus,
   findStatuses,
 } from "../service/statuses.service";
+import { findProject } from "../service/project.service";
 
 export async function createStatusHandler(
   req: Request<{}, {}, StatusFields>,

@@ -23,6 +23,18 @@ import {
   getStatusHandler,
   updateStatusHandler,
 } from "./controller/statuses.controller";
+import {
+  createTaskHandler,
+  deleteTaskHandler,
+  getTaskHandler,
+  getTasksHandler,
+  updateTaskHandler,
+} from "./controller/task.controller";
+import {
+  createTaskSchema,
+  getTaskSchema,
+  updateTaskSchema,
+} from "./schema/task.schema";
 
 function routes(app: Express) {
   app.post(
@@ -70,6 +82,24 @@ function routes(app: Express) {
     "/api/status/:id",
     validateResource(getStatusSchema),
     deleteStatusHandler
+  );
+
+  app.post(
+    "/api/task/create",
+    validateResource(createTaskSchema),
+    createTaskHandler
+  );
+  app.get("/api/task/:id", validateResource(getTaskSchema), getTaskHandler);
+  app.get("/api/tasks/:id", validateResource(getTaskSchema), getTasksHandler);
+  app.put(
+    "/api/task/:id",
+    validateResource(updateTaskSchema),
+    updateTaskHandler
+  );
+  app.delete(
+    "/api/task/:id",
+    validateResource(getTaskSchema),
+    deleteTaskHandler
   );
 }
 
