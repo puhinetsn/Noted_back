@@ -16,6 +16,8 @@ const payload = {
     status_id: number({
       required_error: "Status is required",
     }),
+    begin_date: string({}).optional(),
+    end_date: string({}).optional(),
     priority: z.nativeEnum(TaskPriority, {
       required_error: "Priority is required",
     }),

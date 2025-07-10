@@ -36,6 +36,8 @@ model Task {
   last_update DateTime
   priority    TaskPriority
   ChangeLog   ChangeLog[]  @relation(name: "task_change")
+  begin_date DateTime? 
+  end_date DateTime?
 }
 
 enum TaskPriority {
