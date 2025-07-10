@@ -9,6 +9,8 @@ export async function createTask(input: TaskFields) {
       ...input,
       created_at: new Date(),
       last_update: new Date(),
+      begin_date: new Date(input.begin_date),
+      end_date: new Date(input.end_date),
     },
     include: {
       ChangeLog: true,
@@ -54,6 +56,8 @@ export async function findAndUpdateTask(taskId: number, input: TaskFields) {
     data: {
       ...input,
       last_update: new Date(),
+      begin_date: new Date(input.begin_date),
+      end_date: new Date(input.end_date),
     },
     include: {
       ChangeLog: true,

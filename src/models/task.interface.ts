@@ -5,4 +5,6 @@ export interface TaskFields {
   project_id: number;
   status_id: number;
   priority: TaskPriority;
+  begin_date: Date;
+  end_date: Date;
 }
