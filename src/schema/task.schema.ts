@@ -24,6 +24,32 @@ const payload = {
   }),
 };
 
+const payloadUpdate = {
+  body: object({
+    name: string({
+      required_error: "Name is required",
+    })
+      .max(60, "Name should be maximum 120 characters long")
+      .optional(),
+    description: string({})
+      .max(120, "Description should be maximum 120 characters long")
+      .optional(),
+    project_id: number({
+      required_error: "Project is required",
+    }).optional(),
+    status_id: number({
+      required_error: "Status is required",
+    }).optional(),
+    begin_date: string({}).optional(),
+    end_date: string({}).optional(),
+    priority: z
+      .nativeEnum(TaskPriority, {
+        required_error: "Priority is required",
+      })
+      .optional(),
+  }),
+};
+
 const params = {
   params: object({
     id: string({
@@ -41,6 +67,6 @@ export const getTaskSchema = object({
 });
 
 export const updateTaskSchema = object({
-  ...payload,
+  ...payloadUpdate,
   ...params,
 });

@@ -20,6 +20,13 @@ export async function findProject(projectId: number) {
   }
   return project;
 }
+export async function findProjects() {
+  const projects = await prisma.project.findMany();
+  if (!projects) {
+    throw new InvalidParamsError("Can not find projects");
+  }
+  return projects;
+}
 export async function findAndUpdateProject(
   projectId: number,
   input: ProjectFields
