@@ -8,6 +8,9 @@ const payload = {
     project_id: number({
       required_error: "Project is required",
     }),
+    status_color: string({
+      required_error: "Color is required",
+    }),
   }),
 };
 

@@ -4,6 +4,7 @@ import {
   deleteProject,
   findAndUpdateProject,
   findProject,
+  findProjects,
 } from "../service/project.service";
 import { ProjectFields } from "../models/project.interface";
 import { GetIdByParam } from "../models/shared/idSharedParams.interface";
@@ -25,6 +26,14 @@ export async function getProjectHandler(
   const project = await findProject(projectId);
 
   res.json(project);
+}
+
+export async function getProjectsHandler(
+  req: Request<GetIdByParam>,
+  res: Response
+) {
+  const projects = await findProjects();
+  res.json(projects);
 }
 
 export async function updateProjectHandler(

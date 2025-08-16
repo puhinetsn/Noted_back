@@ -12,7 +12,8 @@ model Statuses {
   id          Int     @id @default(autoincrement())
   status_name String
   project_id  Int
-  project     Project @relation(name: "subscription_projects", fields: [project_id], references: [id])
+  status_color String @default("#5874b4")
+  project     Project @relation(name: "subscription_projects", fields: [project_id], references: [id], onDelete: Cascade)
   Task        Task[]  @relation(name: "task_statuses")
 }
 
@@ -29,28 +30,27 @@ model Task {
   name        String
   description String
   project_id  Int
-  project     Project      @relation(name: "project_tasks", fields: [project_id], references: [id])
+  project     Project      @relation(name: "project_tasks", fields: [project_id], references: [id], onDelete: Cascade)
   created_at  DateTime
   status_id   Int
-  status      Statuses     @relation(name: "task_statuses", fields: [status_id], references: [id])
+  status      Statuses     @relation(name: "task_statuses", fields: [status_id], references: [id],onDelete: Cascade)
   last_update DateTime
   priority    TaskPriority
   ChangeLog   ChangeLog[]  @relation(name: "task_change")
   begin_date DateTime? 
   end_date DateTime?
 }
-
 enum TaskPriority {
-  LOW
-  MEDIUM
-  HIGH
+  LOW 
+  MEDIUM 
+  HIGH 
   CRITICAL
 }
 
 model ChangeLog {
   id              Int      @id @default(autoincrement())
   task_id         Int
-  task            Task     @relation(name: "task_change", fields: [task_id], references: [id])
+  task            Task     @relation(name: "task_change", fields: [task_id], references: [id], onDelete: Cascade)
   created_at      DateTime
   changed_field   String
   old_field_value String

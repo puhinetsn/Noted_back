@@ -22,7 +22,7 @@ statusesRouter.post(
 );
 statusesRouter.get("/:id", validateResource(getStatusSchema), getStatusHandler);
 statusesRouter.get(
-  "projects/:id",
+  "/projects/:id",
   validateResource(getStatusSchema),
   getStatusesHandler
 );

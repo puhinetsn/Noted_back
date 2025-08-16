@@ -43,8 +43,6 @@ export async function updateStatusHandler(
   res: Response
 ) {
   const statusId = parseInt(req.params.id, 10);
-  const status = await findStatus(statusId);
-
   const updatedStatus = await findAndUpdateStatus(statusId, req.body);
 
   res.json(updatedStatus);
@@ -55,8 +53,6 @@ export async function deleteStatusHandler(
   res: Response
 ) {
   const statusId = parseInt(req.params.id, 10);
-  const status = await findStatus(statusId);
-
   await deleteStatus(statusId);
   res.status(200).json({ message: "Status deleted successfully" });
 }

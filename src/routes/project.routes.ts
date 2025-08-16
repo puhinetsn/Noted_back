@@ -9,6 +9,7 @@ import {
   createProjectHandler,
   deleteProjectHandler,
   getProjectHandler,
+  getProjectsHandler,
   updateProjectHandler,
 } from "../controller/project.controller";
 
@@ -24,6 +25,7 @@ projectsRouter.get(
   validateResource(getProjectSchema),
   getProjectHandler
 );
+projectsRouter.get("/", getProjectsHandler);
 projectsRouter.put(
   "/:id",
   validateResource(updateProjectSchema),

@@ -44,7 +44,10 @@ export async function findTasks(projectId: number) {
   return tasks;
 }
 
-export async function findAndUpdateTask(taskId: number, input: TaskFields) {
+export async function findAndUpdateTask(
+  taskId: number,
+  input: Partial<TaskFields>
+) {
   const oldTask = await findTask(taskId);
   if (!oldTask) {
     throw new InvalidParamsError("Can not find task");
@@ -56,8 +59,6 @@ export async function findAndUpdateTask(taskId: number, input: TaskFields) {
     data: {
       ...input,
       last_update: new Date(),
-      begin_date: new Date(input.begin_date),
-      end_date: new Date(input.end_date),
     },
     include: {
       ChangeLog: true,
